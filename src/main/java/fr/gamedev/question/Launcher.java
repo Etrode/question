@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package fr.gamedev.question;
 
@@ -11,13 +11,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-public class Launcher {
+public final class Launcher {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		SpringApplication.run(Launcher.class, args);
-	}
+    private Launcher() {
+
+    }
+
+    /**
+     * @param args
+     */
+    public static void main(final String[] args) {
+        SpringApplication.run(Launcher.class, args);
+    }
 
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package fr.gamedev.question.repository;
 
@@ -13,6 +13,6 @@ import fr.gamedev.question.data.UserAnswer;
  *
  */
 @RepositoryRestResource(collectionResourceRel = "userAnswer", path = "userAnswer")
-public interface UserAnswerRepository extends PagingAndSortingRepository<UserAnswer, Long>{
+public interface UserAnswerRepository extends PagingAndSortingRepository<UserAnswer, Long> {
 
 }
