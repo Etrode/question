@@ -11,11 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-public final class Launcher {
-
-    private Launcher() {
-
-    }
+public class Launcher {
 
     /**
      * @param args

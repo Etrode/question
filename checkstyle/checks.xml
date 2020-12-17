@@ -40,10 +40,11 @@
 
     <property name="fileExtensions" value="java, properties, xml"/>
 
+	
     <!-- Checks that a package-info.java file exists for each package.     -->
     <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage -->
     <module name="JavadocPackage"/>
-
+	<module name="SuppressWarningsFilter"/>
     <!-- Checks whether files end with a new line.                        -->
     <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
     <module name="NewlineAtEndOfFile"/>
@@ -80,6 +81,8 @@
    		 <property name="tabWidth" value="4"/>
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
+        
+
         <module name="JavadocMethod"/>
         <module name="JavadocType"/>
         <module name="JavadocVariable"/>
