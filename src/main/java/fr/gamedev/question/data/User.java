@@ -1,14 +1,25 @@
 package fr.gamedev.question.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 /**
  * @author djer1
+ *
+ */
+/**
+ * @author alexd
  *
  */
 @Entity
@@ -31,6 +42,38 @@ public class User {
      *
      */
     private String lastName;
+
+    /**
+    *
+    */
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(name = "user_skill", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    private List<Skill> skills = new ArrayList<>();
+
+    /**
+     * @return the skills
+     */
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    // Setter volontairement retiré
+
+    /**
+     * @param skill
+     */
+    public void addSkill(final Skill skill) {
+        skills.add(skill);
+        skill.getUsers().add(this);
+    }
+
+    /**
+     * @param skill
+     */
+    public void removeSkill(final Skill skill) {
+        skills.remove(skill);
+        skill.getUsers().remove(this);
+    }
 
     /**
      * @return the id
