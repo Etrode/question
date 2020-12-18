@@ -29,7 +29,8 @@ public class User {
      *
      */
     @GeneratedValue(generator = "seq_gen_user")
-    @GenericGenerator(name = "seq_gen_user", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+    @GenericGenerator(name = "seq_gen_user",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
             @Parameter(name = "sequence_name", value = "seq_user"), @Parameter(name = "initial_value", value = "0"),
             @Parameter(name = "increment_size", value = "1") })
     @Id
@@ -47,7 +48,8 @@ public class User {
     *
     */
     @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(name = "user_tag", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @JoinTable(name = "user_tag", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private List<Tag> tags = new ArrayList<>();
 
     /**
@@ -57,8 +59,11 @@ public class User {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
+    /**
+     * @param lTags
+     */
+    public void setTags(final List<Tag> lTags) {
+        this.tags = lTags;
     }
 
     /**

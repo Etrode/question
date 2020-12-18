@@ -19,7 +19,8 @@ public class Tag {
      *
      */
     @GeneratedValue(generator = "seq_gen_tag")
-    @GenericGenerator(name = "seq_gen_tag", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+    @GenericGenerator(name = "seq_gen_tag",
+                strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
             @Parameter(name = "sequence_name", value = "seq_tag"), @Parameter(name = "initial_value", value = "0"),
             @Parameter(name = "increment_size", value = "1") })
     @Id
@@ -30,6 +31,9 @@ public class Tag {
     */
     private String value;
 
+    /**.
+     * Many tag to many category
+     */
     @ManyToOne
     private Category category;
 
@@ -50,20 +54,32 @@ public class Tag {
         this.id = identifiant;
     }
 
+    /**
+     * @return String
+     */
     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    /**
+     * @param theValue
+     */
+    public void setValue(final String theValue) {
+        this.value = theValue;
     }
 
+    /**
+     * @return Category
+     */
     public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    /**
+     * @param theCategory
+     */
+    public void setCategory(final Category theCategory) {
+        this.category = theCategory;
     }
 
 }

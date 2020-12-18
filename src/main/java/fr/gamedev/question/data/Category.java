@@ -17,7 +17,8 @@ public class Category {
     *
     */
     @GeneratedValue(generator = "seq_gen_category")
-    @GenericGenerator(name = "seq_gen_category", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+    @GenericGenerator(name = "seq_gen_category",
+                    strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
             @Parameter(name = "sequence_name", value = "seq_category"), @Parameter(name = "initial_value", value = "0"),
             @Parameter(name = "increment_size", value = "1") })
     @Id
@@ -28,20 +29,33 @@ public class Category {
     */
     private String name;
 
+    /**
+     * @return long
+     */
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    /**
+     * @param theId
+     */
+    public void setId(final long theId) {
+        this.id = theId;
     }
 
+
+    /**
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * @param theName
+     */
+    public void setName(final String theName) {
+        this.name = theName;
     }
 
 }

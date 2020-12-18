@@ -19,7 +19,8 @@ public class Question {
      *
      */
     @GeneratedValue(generator = "seq_gen_question")
-    @GenericGenerator(name = "seq_gen_question", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+    @GenericGenerator(name = "seq_gen_question",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
             @Parameter(name = "sequence_name", value = "seq_question"), @Parameter(name = "initial_value", value = "0"),
             @Parameter(name = "increment_size", value = "1") })
     @Id
@@ -28,20 +29,26 @@ public class Question {
      *
      */
     private String content;
-    
-    
+
+
     /**
     *
     */
    @OneToOne
    private Answer answer;
-   
+
+    /**
+     * @return Answer
+     */
     public Answer getAnswer() {
         return answer;
     }
 
-    public void setAnswer(Answer answer) {
-        this.answer = answer;
+    /**
+     * @param theAnswer
+     */
+    public void setAnswer(final Answer theAnswer) {
+        this.answer = theAnswer;
     }
 
     /**
