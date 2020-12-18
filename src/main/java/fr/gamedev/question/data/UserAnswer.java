@@ -46,6 +46,7 @@ public class UserAnswer {
     */
     private long points;
 
+  
     /**
      * @return the id
      */

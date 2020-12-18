@@ -37,7 +37,7 @@ public class User {
     /**
      *
      */
-    private String login;
+    private String firstname;
     /**
      *
      */
@@ -47,32 +47,18 @@ public class User {
     *
     */
     @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(name = "user_skill", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private List<Skill> skills = new ArrayList<>();
+    @JoinTable(name = "user_tag", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags = new ArrayList<>();
 
     /**
-     * @return the skills
+     * @return the tags
      */
-    public List<Skill> getSkills() {
-        return skills;
+    public List<Tag> getTags() {
+        return tags;
     }
 
-    // Setter volontairement retiré
-
-    /**
-     * @param skill
-     */
-    public void addSkill(final Skill skill) {
-        skills.add(skill);
-        skill.getUsers().add(this);
-    }
-
-    /**
-     * @param skill
-     */
-    public void removeSkill(final Skill skill) {
-        skills.remove(skill);
-        skill.getUsers().remove(this);
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 
     /**
@@ -90,17 +76,17 @@ public class User {
     }
 
     /**
-     * @return the login
+     * @return the unFirstname
      */
-    public String getLogin() {
-        return login;
+    public String getFirstname() {
+        return firstname;
     }
 
     /**
-     * @param unLogin the login to set
+     * @param unFirstname the login to set
      */
-    public void setLogin(final String unLogin) {
-        this.login = unLogin;
+    public void setLogin(final String unFirstname) {
+        this.firstname = unFirstname;
     }
 
     /**
