@@ -22,13 +22,13 @@ public class UserAnswer {
      *
      */
     @GeneratedValue(generator = "seq_gen_userAnswer")
-    @GenericGenerator(name = "seq_gen_userAnswer",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-            @Parameter(name = "sequence_name", value = "seq_answerUser"),
-            @Parameter(name = "initial_value", value = "0"), @Parameter(name = "increment_size", value = "1") })
+    @GenericGenerator(name = "seq_gen_userAnswer", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = { @Parameter(name = "sequence_name", value = "seq_answerUser"),
+                    @Parameter(name = "initial_value", value = "0"), @Parameter(name = "increment_size", value = "1") })
     @Id
     private long id;
 
+    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
     /**.
      *
      */
@@ -37,16 +37,20 @@ public class UserAnswer {
     /**.
     *
     */
+    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
+
+    //TODO grp2 by DJE : JavaDoc : en général la JavaDoc va au dessus de l'annotation (pour laisser l'annotation au plus près de ce qu'elle annote)
+    //TODO grp2 by DJE : JavaDoc :de la façon dont est conçue l'application il serait plus élégant de stocker la question
     @ManyToOne
     /**.
     *
     */
     private Answer answer;
+    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
     /**.
     *
     */
     private long points;
-
 
     /**.
      * @return the id

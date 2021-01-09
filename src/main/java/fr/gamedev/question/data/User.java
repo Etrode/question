@@ -29,10 +29,9 @@ public class User {
      *
      */
     @GeneratedValue(generator = "seq_gen_user")
-    @GenericGenerator(name = "seq_gen_user",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
-            @Parameter(name = "sequence_name", value = "seq_user"), @Parameter(name = "initial_value", value = "0"),
-            @Parameter(name = "increment_size", value = "1") })
+    @GenericGenerator(name = "seq_gen_user", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = { @Parameter(name = "sequence_name", value = "seq_user"),
+                    @Parameter(name = "initial_value", value = "0"), @Parameter(name = "increment_size", value = "1") })
     @Id
     private long id;
     /**
@@ -44,12 +43,15 @@ public class User {
      */
     private String lastName;
 
+    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
     /**
     *
     */
     @ManyToMany(cascade = { CascadeType.ALL })
+    //TODO grp1 by DJE : ORM : l'annotation @JoinTable est optionnelles et il faut eviter de l'utiliser. Cela créer des liens avec la BDD directement, ce que justement l'ORM essaie d'éviter. Cette annotation sert surtout lorsque l'on ajoute l'ORM après coups et que les règles par defaut n'ont pas été appliquées.
     @JoinTable(name = "user_tag", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    //TODO grp1 by DJE : POO : si cetet attribut s'apellait "prefrences" votre API serait beaucoup plus claire (avec un très petit effort). On pourrait lire "un utilsiateur a des préférences qui est une liste de tags".
     private List<Tag> tags = new ArrayList<>();
 
     /**

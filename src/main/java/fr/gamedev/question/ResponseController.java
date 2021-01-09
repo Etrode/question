@@ -24,6 +24,7 @@ import fr.gamedev.question.repository.UserRepository;
 @RestController
 public class ResponseController {
 
+    //TODO grp2 by DJE : JavaDoc : le . (point) demandé par CheckStyle devrait ête à la fin de votre texte. Cette règle à pour but de rapeler que la partie "description" de la javadoc doit une être une **phrase** (donc avec un point à la fin).
     /**.
      * Injection QuestionRepository
      */
@@ -74,6 +75,7 @@ public class ResponseController {
                     return "Bravo ! Cous avez trouvé ! ";
                 } else {
                     // Réponse incorrecte
+                    //TODO grp2 by DJE : cleanCode : Une grosse partie de ce code est comune avec le bloc précédent et pourrait etre mutualisé avant le bloc if/else.
                     UserAnswer userAnwser = new UserAnswer();
                     userAnwser.setAnswer(answerEntity);
                     userAnwser.setUser(userOpt.get());
@@ -86,6 +88,7 @@ public class ResponseController {
                 return "Une erreur est survenue";
             }
         }
+        //TODO grp2 by DJE : Algo : attention cette log n'est pas dans un "else" elle se produit donc tout le temps !
         log.error("Le userId ou le questionId est incorrect");
         return "Une erreur est survenue";
     }
