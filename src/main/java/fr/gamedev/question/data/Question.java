@@ -16,7 +16,7 @@ import org.hibernate.annotations.Parameter;
 public class Question {
 
     /**
-     *
+     * id.
      */
     @GeneratedValue(generator = "seq_gen_question")
     @GenericGenerator(name = "seq_gen_question",
@@ -26,13 +26,13 @@ public class Question {
     @Id
     private long id;
     /**
-     *
+     * content of the question.
      */
     private String content;
 
 
     /**
-    *
+    * answer of the question.
     */
    @OneToOne
    private Answer answer;

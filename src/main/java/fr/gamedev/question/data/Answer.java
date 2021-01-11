@@ -15,7 +15,7 @@ import org.hibernate.annotations.Parameter;
 public class Answer {
 
     /**
-    * Id.
+    * id.
     */
     @GeneratedValue(generator = "seq_gen_answer")
     @GenericGenerator(name = "seq_gen_answer", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
@@ -25,7 +25,7 @@ public class Answer {
     private long id;
 
     /**
-     * Correct answer.
+     * correct answer to the question.
      */
     private Boolean correctAnswer;
 

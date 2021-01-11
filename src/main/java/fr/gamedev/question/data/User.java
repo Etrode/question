@@ -24,7 +24,7 @@ import org.hibernate.annotations.Parameter;
 public class User {
 
     /**
-     *
+     * id.
      */
     @GeneratedValue(generator = "seq_gen_user")
     @GenericGenerator(name = "seq_gen_user", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
@@ -33,16 +33,16 @@ public class User {
     @Id
     private long id;
     /**
-     *
+     * firstname.
      */
     private String firstname;
     /**
-     *
+     * lastname.
      */
     private String lastName;
 
     /**
-    * Applique un join sur les tables tag et user.
+    * Many User to many Tag.
     */
     @ManyToMany(cascade = { CascadeType.ALL })
 

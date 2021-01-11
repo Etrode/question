@@ -16,7 +16,7 @@ import org.hibernate.annotations.Parameter;
 public class Tag {
 
     /**
-     *
+     * id.
      */
     @GeneratedValue(generator = "seq_gen_tag")
     @GenericGenerator(name = "seq_gen_tag", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
@@ -26,7 +26,7 @@ public class Tag {
     private long id;
 
     /**
-    * Valeur du tag.
+    * tag value.
     */
     private String value;
 
