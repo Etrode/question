@@ -24,27 +24,26 @@ import fr.gamedev.question.repository.UserRepository;
 @RestController
 public class ResponseController {
 
-    //TODO grp2 by DJE : JavaDoc : le . (point) demandé par CheckStyle devrait ête à la fin de votre texte. Cette règle à pour but de rapeler que la partie "description" de la javadoc doit une être une **phrase** (donc avec un point à la fin).
-    /**.
-     * Injection QuestionRepository
+    /**
+     * Injection QuestionRepository.
      */
     @Autowired
     private QuestionRepository questionRepository;
 
-    /**.
-     * Injection UserRepository
+    /**
+     * Injection UserRepository.
      */
     @Autowired
     private UserRepository userRepository;
 
-    /**.
-     * Injection UserAnswerRepository
+    /**
+     * Injection UserAnswerRepository.
      */
     @Autowired
     private UserAnswerRepository userAnswerRepository;
 
-    /**.
-     * Log
+    /**
+     * Log.
      */
     private final Logger log = LoggerFactory.getLogger(ResponseController.class);
 
@@ -56,41 +55,40 @@ public class ResponseController {
 
         Optional<Question> questionOpt = questionRepository.findById(questionId);
         Optional<User> userOpt = userRepository.findById(userId);
+        String response;
 
         if (questionOpt.isPresent() && userOpt.isPresent()) {
 
             Question question = questionOpt.get();
 
             if (question.getAnswer() != null) {
+                // A changer : on récupère à partir de AnswerRepository > .findByQuestion(question)
                 Answer answerEntity = question.getAnswer();
                 Boolean correctAnswer = answerEntity.getCorrectAnswer();
 
+                UserAnswer userAnwser = new UserAnswer();
+                userAnwser.setAnswer(answerEntity);
+                userAnwser.setUser(userOpt.get());
                 // Si answer = correctAnswer
                 if (answer.equals(correctAnswer)) {
-                    UserAnswer userAnwser = new UserAnswer();
-                    userAnwser.setAnswer(answerEntity);
-                    userAnwser.setUser(userOpt.get());
                     userAnwser.setPoints(pointsCorrectAnswer);
                     userAnswerRepository.save(userAnwser);
-                    return "Bravo ! Cous avez trouvé ! ";
+                    response = "Bravo ! Vous avez trouvé ! ";
                 } else {
                     // Réponse incorrecte
-                    //TODO grp2 by DJE : cleanCode : Une grosse partie de ce code est comune avec le bloc précédent et pourrait etre mutualisé avant le bloc if/else.
-                    UserAnswer userAnwser = new UserAnswer();
-                    userAnwser.setAnswer(answerEntity);
-                    userAnwser.setUser(userOpt.get());
                     userAnwser.setPoints(0);
                     userAnswerRepository.save(userAnwser);
-                    return "Oops ! Réponse incorrecte";
+                    response = "Oops ! Réponse incorrecte";
                 }
             } else {
                 log.error("La question id = " + questionId + " n'a pas de réponse associée.");
-                return "Une erreur est survenue";
+                response = "Une erreur est survenue";
             }
+        } else {
+            log.error("Le userId ou le questionId est incorrect");
+            response = "Une erreur est survenue";
         }
-        //TODO grp2 by DJE : Algo : attention cette log n'est pas dans un "else" elle se produit donc tout le temps !
-        log.error("Le userId ou le questionId est incorrect");
-        return "Une erreur est survenue";
+        return response;
     }
 
 }

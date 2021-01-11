@@ -31,9 +31,8 @@ public class Tag {
     */
     private String value;
 
-    //TODO grp2 by DJE : JavaDoc : ce commentaire semble (devenu?) faux.
     /**.
-     * Many tag to many category
+     * Many tag to one category
      */
     @ManyToOne
     private Category category;

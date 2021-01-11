@@ -7,8 +7,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -48,24 +46,21 @@ public class User {
     *
     */
     @ManyToMany(cascade = { CascadeType.ALL })
-    //TODO grp1 by DJE : ORM : l'annotation @JoinTable est optionnelles et il faut eviter de l'utiliser. Cela créer des liens avec la BDD directement, ce que justement l'ORM essaie d'éviter. Cette annotation sert surtout lorsque l'on ajoute l'ORM après coups et que les règles par defaut n'ont pas été appliquées.
-    @JoinTable(name = "user_tag", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    //TODO grp1 by DJE : POO : si cetet attribut s'apellait "prefrences" votre API serait beaucoup plus claire (avec un très petit effort). On pourrait lire "un utilsiateur a des préférences qui est une liste de tags".
-    private List<Tag> tags = new ArrayList<>();
+
+    private List<Tag> preferences = new ArrayList<>();
 
     /**
      * @return the tags
      */
-    public List<Tag> getTags() {
-        return tags;
+    public List<Tag> getPreferences() {
+        return preferences;
     }
 
     /**
      * @param lTags
      */
-    public void setTags(final List<Tag> lTags) {
-        this.tags = lTags;
+    public void setPreferences(final List<Tag> lTags) {
+        this.preferences = preferences;
     }
 
     /**

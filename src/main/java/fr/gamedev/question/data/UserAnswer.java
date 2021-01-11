@@ -39,12 +39,10 @@ public class UserAnswer {
     */
     //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
 
-    //TODO grp2 by DJE : JavaDoc : en général la JavaDoc va au dessus de l'annotation (pour laisser l'annotation au plus près de ce qu'elle annote)
-    //TODO grp2 by DJE : JavaDoc :de la façon dont est conçue l'application il serait plus élégant de stocker la question
+    /**
+     * Many UserAnswer to One answer.
+     */
     @ManyToOne
-    /**.
-    *
-    */
     private Answer answer;
     //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
     /**.
