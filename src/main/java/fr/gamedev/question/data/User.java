@@ -41,9 +41,8 @@ public class User {
      */
     private String lastName;
 
-    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
     /**
-    *
+    * Applique un join sur les tables tag et user.
     */
     @ManyToMany(cascade = { CascadeType.ALL })
 

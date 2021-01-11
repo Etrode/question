@@ -28,25 +28,19 @@ public class UserAnswer {
     @Id
     private long id;
 
-    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
-    /**.
-     *
+    /**
+     * Utilisateur.
      */
     @ManyToOne
     private User user;
-    /**.
-    *
-    */
-    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
 
     /**
      * Many UserAnswer to One answer.
      */
     @ManyToOne
     private Answer answer;
-    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
-    /**.
-    *
+    /**
+    * points d'une question.
     */
     private long points;
 

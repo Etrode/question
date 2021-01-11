@@ -25,14 +25,14 @@ public class Tag {
     @Id
     private long id;
 
-    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
     /**
-    *
+    * Valeur du tag.
     */
     private String value;
 
-    /**.
-     * Many tag to one category
+
+    /**
+     * Many tag to one category.
      */
     @ManyToOne
     private Category category;
