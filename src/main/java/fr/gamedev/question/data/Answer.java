@@ -28,7 +28,7 @@ public class Answer {
      * correct answer to the question.
      */
     private Boolean correctAnswer;
-
+    //TODO grp2 by AGA : architecture : remettre le oneToOne à question + dans l'entité Question retirer le oneToOne anwser + adapter le controller
     /**
      * @return the id
      */
