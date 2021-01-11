@@ -43,9 +43,8 @@ public class User {
      */
     private String lastName;
 
-    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
     /**
-    *
+    * Applique un join sur les tables tag et user.
     */
     @ManyToMany(cascade = { CascadeType.ALL })
     //TODO grp1 by DJE : ORM : l'annotation @JoinTable est optionnelles et il faut eviter de l'utiliser. Cela créer des liens avec la BDD directement, ce que justement l'ORM essaie d'éviter. Cette annotation sert surtout lorsque l'on ajoute l'ORM après coups et que les règles par defaut n'ont pas été appliquées.

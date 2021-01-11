@@ -14,9 +14,8 @@ import org.hibernate.annotations.Parameter;
 @Entity
 public class Answer {
 
-    //TODO grp2 by DJE : JavaDoc : le commentaire JavaDoc ne devrait pas être vide !
     /**
-    *
+    * Id.
     */
     @GeneratedValue(generator = "seq_gen_answer")
     @GenericGenerator(name = "seq_gen_answer", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
@@ -25,8 +24,8 @@ public class Answer {
     @Id
     private long id;
 
-    /**.
-     * Correct answer
+    /**
+     * Correct answer.
      */
     private Boolean correctAnswer;
 
