@@ -13,6 +13,7 @@ import fr.gamedev.question.data.Answer;
 import fr.gamedev.question.data.Question;
 import fr.gamedev.question.data.User;
 import fr.gamedev.question.data.UserAnswer;
+import fr.gamedev.question.repository.AnswerRepository;
 import fr.gamedev.question.repository.QuestionRepository;
 import fr.gamedev.question.repository.UserAnswerRepository;
 import fr.gamedev.question.repository.UserRepository;
@@ -43,6 +44,12 @@ public class ResponseController {
     private UserAnswerRepository userAnswerRepository;
 
     /**
+     * Injection AnswerRepository.
+     */
+    @Autowired
+    private AnswerRepository answerRepository;
+
+    /**
      * Log.
      */
     private final Logger log = LoggerFactory.getLogger(ResponseController.class);
@@ -60,10 +67,11 @@ public class ResponseController {
         if (questionOpt.isPresent() && userOpt.isPresent()) {
 
             Question question = questionOpt.get();
+            Optional<Answer> answerEntityOpt = answerRepository.findByQuestion(question);
 
-            if (question.getAnswer() != null) {
-                // A changer : on récupère à partir de AnswerRepository > .findByQuestion(question)
-                Answer answerEntity = question.getAnswer();
+            if (answerEntityOpt.isPresent()) {
+
+                Answer answerEntity = answerEntityOpt.get();
                 Boolean correctAnswer = answerEntity.getCorrectAnswer();
 
                 UserAnswer userAnwser = new UserAnswer();

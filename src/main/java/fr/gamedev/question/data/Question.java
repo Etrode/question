@@ -3,7 +3,6 @@ package fr.gamedev.question.data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -29,27 +28,6 @@ public class Question {
      * content of the question.
      */
     private String content;
-
-
-    /**
-    * answer of the question.
-    */
-   @OneToOne
-   private Answer answer;
-
-    /**
-     * @return Answer
-     */
-    public Answer getAnswer() {
-        return answer;
-    }
-
-    /**
-     * @param theAnswer
-     */
-    public void setAnswer(final Answer theAnswer) {
-        this.answer = theAnswer;
-    }
 
     /**
      * @return the id

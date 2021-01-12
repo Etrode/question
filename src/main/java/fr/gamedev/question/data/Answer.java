@@ -3,6 +3,7 @@ package fr.gamedev.question.data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -28,7 +29,13 @@ public class Answer {
      * correct answer to the question.
      */
     private Boolean correctAnswer;
-    //TODO grp2 by AGA : architecture : remettre le oneToOne à question + dans l'entité Question retirer le oneToOne anwser + adapter le controller
+
+    /**
+     * One Answer to One Question.
+     */
+    @OneToOne
+    private Question question;
+
     /**
      * @return the id
      */
@@ -41,6 +48,19 @@ public class Answer {
      */
     public void setId(final long theId) {
         this.id = theId;
+    }
+
+    /**
+     * @return the question
+     */
+    public Question getQuestion() {
+        return question;
+    }
+    /**
+     * @param theQuestion the question to set
+     */
+    public void setQuestion(final Question theQuestion) {
+        this.question = theQuestion;
     }
 
     /**
