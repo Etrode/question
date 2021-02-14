@@ -1,10 +1,13 @@
 package fr.gamedev.question;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,11 +57,17 @@ public class ResponseController {
      */
     private final Logger log = LoggerFactory.getLogger(ResponseController.class);
 
+    /**
+     * Default points to an answer.
+     */
+    private static final long DEFAULT_POINT = 5;
+
     @GetMapping("/response")
     public final String answer(@RequestParam final long questionId, @RequestParam final Boolean answer,
             @RequestParam final long userId) {
 
-        final long pointsCorrectAnswer = 5;
+        // Points initiaux
+        long pointsCorrectAnswer = DEFAULT_POINT;
 
         Optional<Question> questionOpt = questionRepository.findById(questionId);
         Optional<User> userOpt = userRepository.findById(userId);
@@ -67,16 +76,28 @@ public class ResponseController {
         if (questionOpt.isPresent() && userOpt.isPresent()) {
 
             Question question = questionOpt.get();
+            User user = userOpt.get();
             Optional<Answer> answerEntityOpt = answerRepository.findByQuestion(question);
 
             if (answerEntityOpt.isPresent()) {
+
+                // Récupération de la dernière réponse de l'utilisateur si existante
+                List<UserAnswer> lUserAnswer = userAnswerRepository.findByQuestionAndUser(question, user);
+                if (!CollectionUtils.isEmpty(lUserAnswer)) {
+                    UserAnswer userAnswerWithLastDate = lUserAnswer.stream().filter(ft -> ft.getDate() != null)
+                            .max(Comparator.comparing(UserAnswer::getDate)).orElse(null);
+                    if (userAnswerWithLastDate != null) {
+                        // Division stricte à 50%
+                        pointsCorrectAnswer = userAnswerWithLastDate.getPoints() / 2;
+                    }
+                }
 
                 Answer answerEntity = answerEntityOpt.get();
                 Boolean correctAnswer = answerEntity.getCorrectAnswer();
 
                 UserAnswer userAnwser = new UserAnswer();
                 userAnwser.setAnswer(answerEntity);
-                userAnwser.setUser(userOpt.get());
+                userAnwser.setUser(user);
                 // Si answer = correctAnswer
                 if (answer.equals(correctAnswer)) {
                     userAnwser.setPoints(pointsCorrectAnswer);

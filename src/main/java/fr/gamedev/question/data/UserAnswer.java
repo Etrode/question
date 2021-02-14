@@ -3,6 +3,8 @@
  */
 package fr.gamedev.question.data;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -40,9 +42,15 @@ public class UserAnswer {
     @ManyToOne
     private Answer answer;
     /**
-    * question points.
+    * Points awarded.
     */
     private long points;
+
+    /**
+     * Answer date.
+     */
+    private Timestamp date;
+
 
     /**
      * @return the id
@@ -98,6 +106,20 @@ public class UserAnswer {
      */
     public void setAnswer(final Answer uneAnswer) {
         this.answer = uneAnswer;
+    }
+
+    /**
+     * @return the date
+     */
+    public Timestamp getDate() {
+        return date;
+    }
+
+    /**
+     * @param theDate the date to set
+     */
+    public void setDate(final Timestamp theDate) {
+        this.date = theDate;
     }
 
 }
