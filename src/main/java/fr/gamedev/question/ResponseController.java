@@ -1,5 +1,6 @@
 package fr.gamedev.question;
 
+import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -102,7 +103,8 @@ public class ResponseController {
                     UserAnswer userAnwser = new UserAnswer();
                     userAnwser.setAnswer(answerEntity);
                     userAnwser.setUser(user);
-                    // Si answer = correctAnswer
+                    userAnwser.setDate(new Timestamp(System.currentTimeMillis()));
+                    // Si answer = correctAnswe!r
                     if (answer.equals(correctAnswer)) {
                         userAnwser.setPoints(pointsCorrectAnswer);
                         userAnswerRepository.save(userAnwser);
