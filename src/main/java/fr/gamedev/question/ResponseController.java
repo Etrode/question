@@ -77,40 +77,49 @@ public class ResponseController {
 
             Question question = questionOpt.get();
             User user = userOpt.get();
-            Optional<Answer> answerEntityOpt = answerRepository.findByQuestion(question);
+            // Vérification si la question a bien été attribuée à l'utilisateur
+            if (!CollectionUtils.isEmpty(user.getQuestions())
+                    && user.getQuestions().contains(question)) {
 
-            if (answerEntityOpt.isPresent()) {
+                Optional<Answer> answerEntityOpt = answerRepository.findByQuestion(question);
 
-                // Récupération de la dernière réponse de l'utilisateur si existante
-                List<UserAnswer> lUserAnswer = userAnswerRepository.findByQuestionAndUser(question, user);
-                if (!CollectionUtils.isEmpty(lUserAnswer)) {
-                    UserAnswer userAnswerWithLastDate = lUserAnswer.stream().filter(ft -> ft.getDate() != null)
-                            .max(Comparator.comparing(UserAnswer::getDate)).orElse(null);
-                    if (userAnswerWithLastDate != null) {
-                        // Division stricte à 50%
-                        pointsCorrectAnswer = userAnswerWithLastDate.getPoints() / 2;
+                if (answerEntityOpt.isPresent()) {
+
+                    // Récupération de la dernière réponse de l'utilisateur si existante
+                    List<UserAnswer> lUserAnswer = userAnswerRepository.findByQuestionAndUser(question, user);
+                    if (!CollectionUtils.isEmpty(lUserAnswer)) {
+                        UserAnswer userAnswerWithLastDate = lUserAnswer.stream().filter(ft -> ft.getDate() != null)
+                                .max(Comparator.comparing(UserAnswer::getDate)).orElse(null);
+                        if (userAnswerWithLastDate != null) {
+                            // Division stricte à 50%
+                            pointsCorrectAnswer = userAnswerWithLastDate.getPoints() / 2;
+                        }
                     }
-                }
 
-                Answer answerEntity = answerEntityOpt.get();
-                Boolean correctAnswer = answerEntity.getCorrectAnswer();
+                    Answer answerEntity = answerEntityOpt.get();
+                    Boolean correctAnswer = answerEntity.getCorrectAnswer();
 
-                UserAnswer userAnwser = new UserAnswer();
-                userAnwser.setAnswer(answerEntity);
-                userAnwser.setUser(user);
-                // Si answer = correctAnswer
-                if (answer.equals(correctAnswer)) {
-                    userAnwser.setPoints(pointsCorrectAnswer);
-                    userAnswerRepository.save(userAnwser);
-                    response = "Bravo ! Vous avez trouvé ! ";
+                    UserAnswer userAnwser = new UserAnswer();
+                    userAnwser.setAnswer(answerEntity);
+                    userAnwser.setUser(user);
+                    // Si answer = correctAnswer
+                    if (answer.equals(correctAnswer)) {
+                        userAnwser.setPoints(pointsCorrectAnswer);
+                        userAnswerRepository.save(userAnwser);
+                        response = "Bravo ! Vous avez trouvé ! ";
+                    } else {
+                        // Réponse incorrecte
+                        userAnwser.setPoints(0);
+                        userAnswerRepository.save(userAnwser);
+                        response = "Oops ! Réponse incorrecte";
+                    }
                 } else {
-                    // Réponse incorrecte
-                    userAnwser.setPoints(0);
-                    userAnswerRepository.save(userAnwser);
-                    response = "Oops ! Réponse incorrecte";
+                    log.error("La question id = " + questionId + " n'a pas de réponse associée.");
+                    response = "Une erreur est survenue";
                 }
             } else {
-                log.error("La question id = " + questionId + " n'a pas de réponse associée.");
+                log.error("La question id = " + questionId
+                        + " ne fait pas partie des questions attribuées à l'utilisateur id = " + userId);
                 response = "Une erreur est survenue";
             }
         } else {

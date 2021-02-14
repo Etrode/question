@@ -45,13 +45,21 @@ public class User {
     * Many User to many Tag.
     */
     @ManyToMany(cascade = { CascadeType.ALL })
+    private List<Tag> preferences;
 
-    private List<Tag> preferences = new ArrayList<>();
+    /**
+    * Many User to many Question.
+    */
+    @ManyToMany
+    private List<Question> questions;
 
     /**
      * @return the tags
      */
     public List<Tag> getPreferences() {
+        if (preferences == null) {
+            preferences = new ArrayList<Tag>();
+        }
         return preferences;
     }
 
@@ -84,10 +92,10 @@ public class User {
     }
 
     /**
-     * @param unFirstname the login to set
+     * @param unFirstname the firstname to set
      */
-    public void setLogin(final String unFirstname) {
-        this.firstname = unFirstname;
+    public void setFirstname(final String unFirstname) {
+        this.firstname = firstname;
     }
 
     /**
@@ -102,6 +110,23 @@ public class User {
      */
     public void setLastName(final String unLastName) {
         this.lastName = unLastName;
+    }
+
+    /**
+     * @return list of questions
+     */
+    public List<Question> getQuestions() {
+        if (questions == null) {
+            questions = new ArrayList<Question>();
+        }
+        return questions;
+    }
+
+    /**
+     * @param theQuestions the questions to set
+     */
+    public void setQuestions(final List<Question> theQuestions) {
+        this.questions = theQuestions;
     }
 
 }
