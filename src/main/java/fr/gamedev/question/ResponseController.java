@@ -1,14 +1,11 @@
 package fr.gamedev.question;
 
 import java.sql.Timestamp;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -86,18 +83,13 @@ public class ResponseController {
                 if (answerEntityOpt.isPresent()) {
 
                     // Récupération de la dernière réponse de l'utilisateur si existante
-                    List<UserAnswer> lUserAnswer = userAnswerRepository.findByQuestionAndUser(question, user);
+                    Optional<UserAnswer> userAnswerWithLastDate = userAnswerRepository
+                            .findTopByAnswerQuestionAndUserAndDateNotNullOrderByDateDesc(question, user);
 
-                    if (!CollectionUtils.isEmpty(lUserAnswer)) {
-
-                        UserAnswer userAnswerWithLastDate = lUserAnswer.stream().filter(ft -> ft.getDate() != null)
-                                .max(Comparator.comparing(UserAnswer::getDate)).orElse(null);
-
-                        if (userAnswerWithLastDate != null) {
+                        if (userAnswerWithLastDate.isPresent()) {
                             // Division stricte à 50%
-                            pointsCorrectAnswer = userAnswerWithLastDate.getPoints() / 2;
+                            pointsCorrectAnswer = userAnswerWithLastDate.get().getPoints() / 2;
                         }
-                    }
 
                     Answer answerEntity = answerEntityOpt.get();
                     Boolean correctAnswer = answerEntity.getCorrectAnswer();
