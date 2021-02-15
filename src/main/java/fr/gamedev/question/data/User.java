@@ -51,7 +51,7 @@ public class User {
     * Many User to many Question.
     */
     @ManyToMany
-    private List<Question> questions;
+    private List<Question> attributedQuestions;
 
     /**
      * @return the tags
@@ -116,17 +116,17 @@ public class User {
      * @return list of questions
      */
     public List<Question> getQuestions() {
-        if (questions == null) {
-            questions = new ArrayList<Question>();
+        if (attributedQuestions == null) {
+            attributedQuestions = new ArrayList<Question>();
         }
-        return questions;
+        return attributedQuestions;
     }
 
     /**
      * @param theQuestions the questions to set
      */
     public void setQuestions(final List<Question> theQuestions) {
-        this.questions = theQuestions;
+        this.attributedQuestions = theQuestions;
     }
 
 }

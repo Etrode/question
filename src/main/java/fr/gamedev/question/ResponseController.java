@@ -79,8 +79,7 @@ public class ResponseController {
             Question question = questionOpt.get();
             User user = userOpt.get();
             // Vérification si la question a bien été attribuée à l'utilisateur
-            if (!CollectionUtils.isEmpty(user.getQuestions())
-                    && user.getQuestions().contains(question)) {
+            if (user.getQuestions().contains(question)) {
 
                 Optional<Answer> answerEntityOpt = answerRepository.findByQuestion(question);
 
@@ -88,9 +87,12 @@ public class ResponseController {
 
                     // Récupération de la dernière réponse de l'utilisateur si existante
                     List<UserAnswer> lUserAnswer = userAnswerRepository.findByQuestionAndUser(question, user);
+
                     if (!CollectionUtils.isEmpty(lUserAnswer)) {
+
                         UserAnswer userAnswerWithLastDate = lUserAnswer.stream().filter(ft -> ft.getDate() != null)
                                 .max(Comparator.comparing(UserAnswer::getDate)).orElse(null);
+
                         if (userAnswerWithLastDate != null) {
                             // Division stricte à 50%
                             pointsCorrectAnswer = userAnswerWithLastDate.getPoints() / 2;
